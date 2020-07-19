@@ -1,6 +1,6 @@
 # Azure Storage Build Publisher
 
-With this plugin you can upload Android build to Azure Storage via command line or Android Studio.
+With this plugin you can upload static assets build to Azure Storage via command line.
 
 # Installation
 
@@ -11,7 +11,7 @@ buildscript {
     // other stuff here
 
     dependencies {
-        classpath "gradle.plugin.li.mews.android.gradle-azure-apk-publisher:GradleAzureApkPublisher:[VERSION]"
+        classpath "gradle.plugin.com.xinjiangshao.gradle-azure-assets-publisher:gradle-azure-assets-publisher:[VERSION]"
     }
 }
 ```
@@ -19,11 +19,12 @@ buildscript {
 And add this to your **app** `build.gradle`:
 
 ```
-apply plugin: "li.mews.android.gradle-azure-apk-publisher"
+apply plugin: "com.xinjiangshao.gradle-azure-assets-publisher"
 
 azurePublishConfig {
     connectionString "[CONNECTION_STRING]"
     container "[CONTAINER_NAME]"
+    packageTarFile "[PACKAEGE_TAR_FILE]"
 }
 ```
 
@@ -39,8 +40,8 @@ azurePublishConfig {
 
 With the plugin installed, a set of new tasks, prefixed "azurePublish" will be added, one for each build type.
 
-For example: to upload a debug build, run the following from terminal:
+For example: to upload a build, run the following from terminal:
 
 ```
-gradlew azurePublishDebug
+gradlew azurePublishAssets
 ```

@@ -1,18 +1,20 @@
 plugins {
     id 'java-gradle-plugin'
     id 'org.jetbrains.kotlin.jvm' version '1.3.21'
-    id 'com.gradle.plugin-publish' version '0.10.0'
+    id 'com.gradle.plugin-publish' version '0.10.1'
 }
 
-version = '0.3'
+version = '0.4.0'
+
+description 'Provides a task that publishes static assets to Azure storage'
 
 gradlePlugin {
     plugins {
         azurePublishPlugin {
-            id = 'li.mews.android.gradle-azure-apk-publisher'
-            displayName = 'Azure Storage APK Publisher'
-            description = 'Publishes Android APKs to Azure Storage'
-            implementationClass = 'li.mews.android.azurepublish.AzurePublishPlugin'
+            id = 'com.xinjiangshao.gradle-azure-apk-publisher'
+            displayName = 'Azure Storage Assets Publisher'
+            description = project.description
+            implementationClass = 'com.xinjiangshao.azurepublish.AzurePublishPlugin'
         }
     }
 }
@@ -27,7 +29,6 @@ repositories {
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
     implementation gradleApi()
-    implementation "com.android.tools.build:gradle:3.3.2"
     implementation "com.microsoft.azure:azure-storage:2.0.0"
 }
 compileKotlin {
@@ -42,7 +43,8 @@ compileTestKotlin {
 }
 
 pluginBundle {
-    website = "https://github.com/MewsSystems/gradle-azure-apk-publisher"
-    vcsUrl = "https://github.com/MewsSystems/gradle-azure-apk-publisher"
-    tags = ['azure', 'android']
+    website = "https://github.com/soleo/gradle-azure-assets-publisher"
+    vcsUrl = "https://github.com/soleo/gradle-azure-assets-publisher"
+    description = project.description
+    tags = ['azure', 'storage', 'publisher', 'assets']
 }
