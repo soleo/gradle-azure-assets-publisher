@@ -11,7 +11,7 @@ description 'Provides a task that publishes static assets to Azure storage'
 gradlePlugin {
     plugins {
         azurePublishPlugin {
-            id = 'com.xinjiangshao.gradle-azure-apk-publisher'
+            id = 'com.xinjiangshao.gradle-azure-assets-publisher'
             displayName = 'Azure Storage Assets Publisher'
             description = project.description
             implementationClass = 'com.xinjiangshao.azurepublish.AzurePublishPlugin'
