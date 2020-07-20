@@ -4,8 +4,11 @@ import java.lang.IllegalArgumentException
 
 open class AzurePublishExtension {
     var connectionString: String = ""
+
     var container: String = ""
+
     var path: String = ""
+
     var packageTarFile: String = ""
 
     fun validate() {
