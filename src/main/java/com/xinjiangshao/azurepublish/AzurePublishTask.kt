@@ -27,7 +27,7 @@ open class AzurePublishTask : DefaultTask() {
         val container = client.getContainerReference(extension.container)
         container.createIfNotExists()
 
-        assetDir = File(extension.assetDir)
+        this.assetDir = File(extension.assetDir)
 
         assetDir.walkTopDown().forEach {
             project.logger.info("Uploaded ${it.name} to ${container.name}")
