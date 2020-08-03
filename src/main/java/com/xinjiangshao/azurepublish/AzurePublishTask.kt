@@ -13,12 +13,6 @@ open class AzurePublishTask : DefaultTask() {
     @get:Input
     lateinit var extension: AzurePublishExtension
 
-    @InputFile
-    lateinit var assetDir: File
-
-    @OutputDirectory
-    lateinit var outputPath: File
-
     @TaskAction
     fun action() {
         extension.validate()
@@ -27,7 +21,7 @@ open class AzurePublishTask : DefaultTask() {
         val container = client.getContainerReference(extension.container)
         container.createIfNotExists()
 
-        this.assetDir = File(extension.assetDir)
+        val assetDir = File(extension.assetDir)
 
         assetDir.walkTopDown().forEach {
             project.logger.info("Uploaded ${it.name} to ${container.name}")
