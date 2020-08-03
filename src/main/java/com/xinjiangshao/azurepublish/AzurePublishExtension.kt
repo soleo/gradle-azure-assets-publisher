@@ -9,11 +9,11 @@ open class AzurePublishExtension {
 
     var path: String = ""
 
-    var packageTarFile: String = ""
+    var assetDir: String = ""
 
     fun validate() {
         if (connectionString.isEmpty()) throw IllegalArgumentException("Provide non-empty 'connectionString' property")
         if (container.isEmpty()) throw IllegalArgumentException("Provide non-empty 'container' property")
-        if (packageTarFile.isEmpty()) throw IllegalArgumentException("Provide non-empty 'packageTarFile' property")
+        if (assetDir.isEmpty()) throw IllegalArgumentException("Provide non-empty 'assetDir' property")
     }
 }

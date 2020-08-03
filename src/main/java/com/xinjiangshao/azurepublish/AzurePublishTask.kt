@@ -14,7 +14,7 @@ open class AzurePublishTask : DefaultTask() {
     lateinit var extension: AzurePublishExtension
 
     @InputFile
-    lateinit var tarFile: File
+    lateinit var assetDir: File
 
     @OutputDirectory
     lateinit var outputPath: File
@@ -27,12 +27,12 @@ open class AzurePublishTask : DefaultTask() {
         val container = client.getContainerReference(extension.container)
         container.createIfNotExists()
 
-        tarFile = File(extension.packageTarFile)
+        assetDir = File(extension.assetDir)
 
-        outputPath = File(extension.path, "dist")
-        val blob = container.getBlockBlobReference(outputPath.path)
-        blob.upload(tarFile.inputStream(), tarFile.length())
-
-        project.logger.info("Uploaded ${tarFile.name} to ${container.name}:$outputPath")
+        assetDir.walkTopDown().forEach {
+            project.logger.info("Uploaded ${it.name} to ${container.name}")
+            val blob = container.getBlockBlobReference(it.name);
+            blob.upload(it.inputStream(), it.length());
+        }
     }
 }
