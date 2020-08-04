@@ -1,10 +1,9 @@
 package com.xinjiangshao.azurepublish
 
-import com.microsoft.azure.storage.CloudStorageAccount
+import com.azure.storage.blob.BlobServiceClientBuilder
+import com.azure.storage.blob.BlobServiceClient
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.Input
-import org.gradle.api.tasks.InputFile
-import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.TaskAction
 import java.io.File
 
@@ -16,17 +15,18 @@ open class AzurePublishTask : DefaultTask() {
     @TaskAction
     fun action() {
         extension.validate()
-        val account = CloudStorageAccount.parse(extension.connectionString)
-        val client = account.createCloudBlobClient()
-        val container = client.getContainerReference(extension.container)
-        container.createIfNotExists()
+        val blobServiceClient = BlobServiceClientBuilder()
+            .endpoint(extension.connectionString)
+            .buildClient()
+
+        val blobContainerClient = blobServiceClient.getBlobContainerClient(extension.container)
 
         val assetDir = File(extension.assetDir)
 
         assetDir.walkTopDown().forEach {
-            project.logger.info("Uploaded ${it.name} to ${container.name}")
-            val blob = container.getBlockBlobReference(it.name);
-            blob.upload(it.inputStream(), it.length());
+            project.logger.info("Uploaded ${it.name}")
+            val blobClient = blobContainerClient.getBlobClient(it.name);
+            blobClient.upload(it.inputStream(), it.length());
         }
     }
 }
