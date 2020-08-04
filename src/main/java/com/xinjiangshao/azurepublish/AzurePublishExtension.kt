@@ -1,13 +1,15 @@
 package com.xinjiangshao.azurepublish
 
 import java.lang.IllegalArgumentException
+import org.gradle.api.file.DirectoryProperty
+import org.gradle.api.Project
 
-open class AzurePublishExtension {
+open class AzurePublishExtension(project: Project) {
     var connectionString: String = ""
 
     var container: String = ""
 
-    var path: String = ""
+    val inputDir: DirectoryProperty = project.objects.directoryProperty()
 
     var assetDir: String = ""
 
